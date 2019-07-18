@@ -210,11 +210,15 @@ then
 	# 1. read the controller config rendered by MachineConfigOperator
 	# 2. read the default MachineConfigPools rendered by MachineConfigOperator
 	# 3. read any additional MachineConfigs that are needed for the default MachineConfigPools.
-	mkdir --parents /etc/mcc/bootstrap /etc/mcs/bootstrap /etc/kubernetes/manifests
+	mkdir --parents /etc/mcc/bootstrap /etc/mcs/bootstrap /etc/kubernetes/manifests /etc/kubernetes/static-pod-resources
 	cp mco-bootstrap/bootstrap/manifests/* /etc/mcc/bootstrap/
 	cp openshift/* /etc/mcc/bootstrap/
 	cp auth/kubeconfig-kubelet /etc/mcs/kubeconfig
 	cp mco-bootstrap/bootstrap/machineconfigoperator-bootstrap-pod.yaml /etc/kubernetes/manifests/
+	cp mco-bootstrap/manifests/coredns.yaml /etc/kubernetes/manifests
+	cp -r mco-bootstrap/static-pod-resources/coredns /etc/kubernetes/static-pod-resources
+	cp mco-bootstrap/manifests/keepalived.yaml /etc/kubernetes/manifests
+	cp -r mco-bootstrap/static-pod-resources/keepalived /etc/kubernetes/static-pod-resources
 	cp mco-bootstrap/manifests/* manifests/
 
 	# /etc/ssl/mcs/tls.{crt, key} are locations for MachineConfigServer's tls assets.
