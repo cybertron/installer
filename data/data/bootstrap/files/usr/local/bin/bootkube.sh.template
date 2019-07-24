@@ -215,10 +215,16 @@ then
 	cp openshift/* /etc/mcc/bootstrap/
 	cp auth/kubeconfig-kubelet /etc/mcs/kubeconfig
 	cp mco-bootstrap/bootstrap/machineconfigoperator-bootstrap-pod.yaml /etc/kubernetes/manifests/
-	cp mco-bootstrap/manifests/coredns.yaml /etc/kubernetes/manifests
-	cp -r mco-bootstrap/static-pod-resources/coredns /etc/kubernetes/static-pod-resources
-	cp mco-bootstrap/manifests/keepalived.yaml /etc/kubernetes/manifests
-	cp -r mco-bootstrap/static-pod-resources/keepalived /etc/kubernetes/static-pod-resources
+	if [ -e mco-bootstrap/manifests/coredns.yaml ]
+	then
+        cp mco-bootstrap/manifests/coredns.yaml /etc/kubernetes/manifests
+        cp -r mco-bootstrap/static-pod-resources/coredns /etc/kubernetes/static-pod-resources
+    fi
+    if [ -e mco-bootstrap/manifests/keepalived.yaml ]
+    then
+        cp mco-bootstrap/manifests/keepalived.yaml /etc/kubernetes/manifests
+        cp -r mco-bootstrap/static-pod-resources/keepalived /etc/kubernetes/static-pod-resources
+    fi
 	cp mco-bootstrap/manifests/* manifests/
 
 	# /etc/ssl/mcs/tls.{crt, key} are locations for MachineConfigServer's tls assets.
