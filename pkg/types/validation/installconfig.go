@@ -255,9 +255,9 @@ func validateNetworkingIPVersion(n *types.Networking, p *types.Platform) field.E
 			// FIXME: we should allow either all-networks-IPv4Primary or
 			// all-networks-IPv6Primary, but the latter currently causes
 			// confusing install failures, so block it.
-			if v.IPv4 && v.IPv6 && v.Primary != corev1.IPv4Protocol {
-				allErrs = append(allErrs, field.Invalid(field.NewPath("networking", k), strings.Join(ipnetworksToStrings(addresses[k]), ", "), "IPv4 addresses must be listed before IPv6 addresses"))
-			}
+// 			if v.IPv4 && v.IPv6 && v.Primary != corev1.IPv4Protocol {
+// 				allErrs = append(allErrs, field.Invalid(field.NewPath("networking", k), strings.Join(ipnetworksToStrings(addresses[k]), ", "), "IPv4 addresses must be listed before IPv6 addresses"))
+//			}
 		}
 
 	case hasIPv6:
@@ -475,8 +475,8 @@ func validateVIPsForPlatform(network *types.Networking, platform *types.Platform
 	}
 	switch {
 	case platform.BareMetal != nil:
-		allErrs = append(allErrs, ensureIPv4IsFirstInDualStackSlice(&platform.BareMetal.APIVIPs, fldPath.Child(baremetal.Name, newVIPsFields.APIVIPs))...)
-		allErrs = append(allErrs, ensureIPv4IsFirstInDualStackSlice(&platform.BareMetal.IngressVIPs, fldPath.Child(baremetal.Name, newVIPsFields.IngressVIPs))...)
+		//allErrs = append(allErrs, ensureIPv4IsFirstInDualStackSlice(&platform.BareMetal.APIVIPs, fldPath.Child(baremetal.Name, newVIPsFields.APIVIPs))...)
+		//allErrs = append(allErrs, ensureIPv4IsFirstInDualStackSlice(&platform.BareMetal.IngressVIPs, fldPath.Child(baremetal.Name, newVIPsFields.IngressVIPs))...)
 
 		virtualIPs = vips{
 			API:     platform.BareMetal.APIVIPs,
