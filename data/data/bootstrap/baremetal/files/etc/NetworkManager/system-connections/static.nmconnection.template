@@ -4,12 +4,15 @@ type=ethernet
 [ethernet]
 mac-address={{.PlatformData.BareMetal.ExternalMACAddress}}
 {{ if .UseIPv6ForNodeIP }}
+[ipv4]
+method=disabled
 [ipv6]
+method=auto
 {{ else }}
 [ipv4]
-{{ end }}
 method=manual
 addresses={{.PlatformData.BareMetal.ExternalStaticIP}}/{{.PlatformData.BareMetal.ExternalSubnetCIDR}}
 gateway={{.PlatformData.BareMetal.ExternalStaticGateway}}
 dns={{.PlatformData.BareMetal.ExternalStaticGateway}}
+{{ end }}
 {{end}}
